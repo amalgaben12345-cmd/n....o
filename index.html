@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عيد مبارك 👀</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f3f0f7, #e8e3f0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.page {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+    min-height: 80px;
+    position: relative;
+    width: 100%;
+}
+
+button {
+    padding: 16px 45px;
+    border: none;
+    border-radius: 50px;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+    outline: none;
+    touch-action: manipulation;
+}
+
+.start-btn, .yes {
+    background: linear-gradient(135deg, #7c4dff, #651fff);
+    color: white;
+    box-shadow: 0 7px 20px rgba(101, 31, 255, 0.25);
+}
+
+.start-btn:hover, .yes:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(101, 31, 255, 0.4);
+}
+
+.no {
+    background: linear-gradient(135deg, #607d8b, #455a64);
+    color: white;
+    box-shadow: 0 7px 20px rgba(69, 90, 100, .3);
+    transition: left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                top 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+h1 {
+    color: #4a148c;
+    font-size: 38px;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,.05);
+    padding: 0 20px;
+}
+
+#page3 {
+    background: radial-gradient(circle at top, #e1bee7, #f3f0f7 60%);
+    overflow: hidden;
+}
+
+.glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: rgba(124, 77, 255, 0.12);
+    border-radius: 50%;
+    filter: blur(120px);
+    animation: pulse 4s infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes pulse {
+    from { transform: scale(.8); }
+    to { transform: scale(1.2); }
+}
+
+.message-box {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    animation: fadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.message {
+    font-size: 24px; 
+    color: #4a148c;
+    width: 85%;
+    max-width: 450px;
+    line-height: 1.6;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    padding: 25px;
+    border-radius: 35px;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 10px 40px rgba(124, 77, 255, 0.1);
+}
+
+/* 🖼️ تصميم الصورة بشكل دائري أنيق مع إطار مضيء */
+.eid-photo {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 4px solid white;
+    box-shadow: 0 8px 20px rgba(124, 77, 255, 0.25);
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.hearts {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.heart {
+    position: absolute;
+    opacity: 0;
+    bottom: -50px;
+    animation: float 4s linear forwards;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(0);
+        opacity: 0;
+    }
+    15% { opacity: 1; }
+    90% { opacity: 1; }
+    100% {
+        transform: translateY(-115vh) rotate(360deg) scale(1.3);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="eidMusic" src="eid.mp3" preload="auto" loop></audio>
+
+<div class="page active" id="page1">
+    <button class="start-btn" onclick="goPage2()">
+        انقر هنا 👀
+    </button>
+</div>
+
+<div class="page" id="page2">
+    <h1>هل تحبني؟ 👀</h1>
+    <div class="buttons-container" id="container">
+        <button class="yes" onclick="showLove()">
+            نعم 🤍
+        </button>
+        <button class="no" id="noBtn">
+            لا 😒
+        </button>
+    </div>
+</div>
+
+<div class="page" id="page3">
+    <div class="hearts" id="hearts"></div>
+    <div class="glow"></div>
+    <div class="message-box">
+        <div class="message">
+            <img src="eid.jpg" alt="عيد مبارك" class="eid-photo">
+            <br>
+            🤍 وأنا أحبك 🤍
+            <br><br>
+            ✨ عيدك مبارك ✨
+            <br>
+            🤭 كل عام وحنا بخير 🤭
+            <br>
+            🎉 وينعاد علينا بالخير والسرور والتفوق 🎉
+        </div>
+    </div>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const eidMusic = document.getElementById("eidMusic");
+let isAbsolute = false; 
+let heartInterval; 
+let escapeCount = 0; 
+
+function goPage2() {
+    document.getElementById("page1").classList.remove("active");
+    document.getElementById("page2").classList.add("active");
+}
+
+function showLove() {
+    if(heartInterval) clearInterval(heartInterval);
+    document.getElementById("page2").classList.remove("active");
+    document.getElementById("page3").classList.add("active");
+    
+    // 🎵 تشغيل الأغنية تلقائياً عند الضغط على نعم
+    if(eidMusic) {
+        eidMusic.play().catch(error => {
+            console.log("المتصفح يحتاج لتفاعل إضافي لتشغيل الصوت:", error);
+        });
+    }
+
+    createHearts();
+    if (navigator.vibrate) navigator.vibrate(100); 
+}
+
+function handleEscape(e) {
+    if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    if (!isAbsolute) {
+        noBtn.style.position = 'fixed';
+        isAbsolute = true;
+    }
+
+    escapeCount++;
+
+    if(escapeCount === 4) noBtn.innerHTML = "مستحيل تسبقني 😜";
+    else if(escapeCount === 8) noBtn.innerHTML = "اضغط نعم وخلصنا 🤣";
+    else if(escapeCount === 12) noBtn.innerHTML = "ما تعبت؟ 🤡";
+
+    const padding = 60; 
+    const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+    const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+    const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+    const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+}
+
+noBtn.addEventListener("mouseover", handleEscape);
+noBtn.addEventListener("touchstart", handleEscape, { passive: false });
+noBtn.addEventListener("click", (e) => e.preventDefault());
+
+function createHearts() {
+    const heartsContainer = document.getElementById("hearts");
+    const shapes = ["🤍", "✨", "🎉", "🌟", "🌿", "🤭"];
+
+    heartInterval = setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = shapes[Math.floor(Math.random() * shapes.length)];
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 2 + 2.5) + "s"; 
+        heart.style.fontSize = (Math.random() * 15 + 20) + "px"; 
+
+        heartsContainer.appendChild(heart);
+        setTimeout(() => { heart.remove(); }, 4500);
+    }, 180); 
+}
+</script>
+
+</body>
+</html>
